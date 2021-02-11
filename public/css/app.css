@@ -1,0 +1,45 @@
+h1
+{
+    color: #B0413E;
+}
+
+.btn
+{
+    text-align:center;
+}
+
+.backcolor
+{
+    background: linear-gradient( #80AE80,white, #57acc1);
+}
+
+.logo-app
+{
+    border: 2px;
+    border-radius: 5px;
+}
+
+.form-voirie
+{
+    margin-top: 20px;
+    padding: 5px;
+    box-sizing: border-box;
+
+}
+
+.danger
+{
+    color: #B0413E;
+}
+
+.disabled {
+    pointer-events: none;
+    cursor: default;
+}
+
+#en-tete
+{
+    margin-top: 20px;
+    padding: 5px;
+    box-sizing: border-box;
+}

@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+
+<div class="container backcolor">
+    <div class="row" id="en-tete">
+        <div class="col-md-2 ">
+            <img src="{{ asset('images/maisdon-logo.jpeg') }}" width="450px" class="logo-app">
+        </div>
+        <div class="col-md-10">
+            <div class="text-right" style="padding:1em 0;" >
+                <h2><a class="disabled text-right" style="text-decoration:none;" href="https://www.zeitverschiebung.net/fr/city/2990969"><span style="color:white;"></span><br /></a></h2>
+                <iframe class="disabled text-right" src="https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=fr&size=large&timezone=Europe%2FParis" width="25%" height="140" frameborder="0" seamless></iframe>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="informations">
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="text-center" style="color: #B0413E">Demande d'intervention voirie</h1>
+                <br>
+                <p class="lead text-justify"> La Mairie de Maisdon sur Sèvre propose ce formulaire pour vous permettre de déclarer tout incident
+                    de voirie représentant un <strong class="danger">DANGER</strong> (nid de poule, dégradation majeure de voirie, etc...)</p>
+                <p><em><small>Toute sollicitation pour de l'entretien, une réclamation ou ne représentant pas de caractères de dangerosité ne pourra être prise en compte ici.
+                Pour cela, merci de contacter les services communaux par les moyens habituels.</small></em></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row form-voirie">
+            <div class="col-md-3 form-voirie">
+            </div>
+            <div class="col-md-6 form-voirie">
+
+                    {{ form_start(voirie) }}
+
+                    <div class="form-group">
+                        {{ form_label(voirie.nom) }}
+                        {{ form_widget(voirie.nom) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(voirie.email) }}
+                        {{ form_widget(voirie.email) }}
+                        {{ form_errors(voirie.email) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(voirie.tel) }}
+                        {{ form_widget(voirie.tel) }}
+
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(voirie.places) }}
+                        {{ form_widget(voirie.places) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(voirie.title) }}
+                        {{ form_widget(voirie.title) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(voirie.description) }}
+                        {{ form_widget(voirie.description) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(voirie.agreeTerms) }}
+                        {{ form_widget(voirie.agreeTerms) }}
+                    </div>
+                    <div class="row form-voirie">
+                        <div class="col-md-5"></div>
+                        <div class="col-2 ">
+                        <button class="btn btn-success btn-lg" type="submit">Envoyer</button>
+                         </div>
+                        <div class="col-md-5"></div>
+                    </div>
+                    {{ form_end(voirie) }}
+
+
+            </div>
+            <div class="col-md-3 form-voirie">
+            </div>
+    </div>
+    <div id="footer" class="form-voirie">
+        <div class="text-right"> &copy; {{ "now" | date("Y")}} maisdon-sur-sevre.fr</div>
+        <br>
+    </div>
+</div>
+
+{% endblock %}

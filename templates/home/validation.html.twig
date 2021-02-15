@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} | Validé{% endblock %}
+
+{% block body %}
+
+    <div class="container backcolor">
+        <div class="row" id="en-tete">
+            <div class="col-md-2 ">
+                <img src="{{ asset('images/maisdon-logo.jpeg') }}" width="450px" class="logo-app">
+            </div>
+            <div class="col-md-10">
+                <div class="text-right" style="padding:1em 0;" >
+                    <h2><a class="disabled text-right" style="text-decoration:none;" href="https://www.zeitverschiebung.net/fr/city/2990969"><span style="color:white;"></span><br /></a></h2>
+                    <iframe class="disabled text-right" src="https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=fr&size=large&timezone=Europe%2FParis" width="25%" height="140" frameborder="0" seamless></iframe>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="informations">
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                    <h1 class="text-center" style="color: #B0413E">Demande d'intervention voirie</h1>
+                    <br>
+                    <p class="lead text-justify"> La Mairie de Maisdon sur Sèvre propose ce formulaire pour vous permettre de déclarer tout incident
+                        de voirie représentant un <strong class="danger">DANGER</strong> (nid de poule, dégradation majeure de voirie, etc...)</p>
+                    <p><em><small>Toute sollicitation pour de l'entretien, une réclamation ou ne représentant pas de caractères de dangerosité ne pourra être prise en compte ici.
+                                Pour cela, merci de contacter les services communaux par les moyens habituels.</small></em></p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 ">
+            </div>
+            <h2 class="app_center">Félicitation ! Demande Validé !</h2>
+
+                {% if (ok == "true") %}
+                    <iframe src="{{ sms }}" aria-hidden="true" class="app_center dimension_iframe"></iframe>
+                    <p class="app_center">Vous voulez recevoir une confirmation de votre demande par Sms</p>
+                {% endif %}
+            <a href="http://www.maisdon-sur-sevre.fr" class="app_center_no_relative btn-success btn">Accueil</a>
+
+            <div class="col-md-3 ">
+            </div>
+        </div>
+        <div id="footer" class="form-voirie">
+            <div class="text-right"> &copy; {{ "now" | date("Y")}} maisdon-sur-sevre.fr</div>
+            <br>
+        </div>
+    </div>
+
+{% endblock body %}

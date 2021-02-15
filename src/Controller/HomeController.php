@@ -4,12 +4,17 @@ namespace App\Controller;
 
 use App\Entity\Incidents;
 use App\Form\IncidentsType;
+use App\Entity\Tplaces;
+use App\Form\PlaceType;
 use App\Repository\IncidentsRepository;
 use App\Repository\TplacesRepository;
 use ContainerE6jcxec\getPlaceControllerService;
 use DateTime;
 use DateTimeImmutable;
+use Doctrine\ORM\EntityManagerInterface;
+use PhpParser\Node\Expr\Cast\Array_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,6 +25,7 @@ class HomeController extends AbstractController
      * @Route("/", name="home")
      * @param Request $request
      * @param TplacesRepository $tplacesRepository
+     * @return RedirectResponse|Response
      */
     public function index(Request $request, TplacesRepository $tplacesRepository)
     {
@@ -45,32 +51,56 @@ class HomeController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($incidents);
             $em->flush();
-
- dump($incidents);
             $num = $incidents->getTel();
-            /*$IPXapikey = "AZERTY";
-            $IPX_host = "10.8.1.102";
-            $message = "Votre demande à bien était envoyée auprès de nos services de la mairie de Maisdon-sur-Sèvre. Bonne journée.";
-            if (strlen($num) == 10 && ctype_digit($num) && (substr($num, 0, 2) == '06' || substr($num, 0, 2) == '07')) {
-                $ch = curl_init();
-                $url = "http://" . $IPX_host . "/api/xdevices.json?key=" . $IPXapikey . "&SetSMS=" . $num . ":" . $message;
-                //echo $url.'<br>';
-                curl_setopt($ch, CURLOPT_URL, $url);
-                curl_exec($ch);
-                curl_close($ch);
-            }*/
-            return $this->redirectToRoute('validation', []
-            //return $this->redirect('https://sms.mms.fr/api/xdevices.json?key=AZERTY&SetSMS='.$num.':test'
-            );
+            $mail=$incidents->getEmail();
+            $titre=$incidents->getTitle();
+            $demande=$incidents->getDescription();
+            $date=$incidents->getDateCreate();
+            $reponseValid = [$num,$mail,$demande,$titre,$date];
+
+
+            return $this->redirectToRoute('app_validation', [
+                    'sms'=>$num,
+                    'reponse'=>$reponseValid,
+                ]);
             }
 
 
         return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
             'voirie' => $voirieForm->createView(),
             'villages'=>$tplacesRepository->findAll(),
 
         ]);
+        }
+
+    /**
+     * @Route ("/validation", name="app_validation")
+     * @param Request $request
+     * @return Response
+     */
+        public function validation(Request $request): Response
+        {
+            $num = $request->get('sms');
+            $titre = $request->get('reponse',4);
+            $description= $request->get('reponse',3);
+            $date = $request->get('reponse',5);
+            var_dump($titre,$description,$date);
+            $IPXapikey = "AZERTY";
+
+            $message = "Titre:  description:  Date: ";
+
+            if (substr($num, 0, 2) == '06' || substr($num, 0, 2) == '07') {
+                $url = "https://sms.maisdon-sur-sevre.fr/api/xdevices.json?key=" . $IPXapikey . "&SetSMS=" . $num . ":" .$message."";
+
+                return $this->render('home/validation.html.twig', [
+                    'sms' => $url,
+                    'ok'=> 'true',
+                ]);
+            }
+            return $this->render('home/validation.html.twig', [
+                'sms' => 'valider',
+                'ok'=> 'false',]
+            );
         }
 
   /*  public function send(int $num): void
@@ -98,8 +128,11 @@ class HomeController extends AbstractController
 */
  //   /**
 //     * @Route("/addvillages", name="app_addvillages")
- //    */
- /*   public function add(EntityManagerInterface $entityManager, TplacesRepository $tplacesRepository): Response
+//     * @param EntityManagerInterface $entityManager
+//     * @param TplacesRepository $tplacesRepository
+//     * @return Response
+//     */
+/*    public function add(EntityManagerInterface $entityManager, TplacesRepository $tplacesRepository): Response
     {
             for($i = 0 ; $i < 30 ; $i++) {
                 $villages = new Tplaces();
@@ -107,7 +140,7 @@ class HomeController extends AbstractController
                 $entityManager->persist($villages);
             }
                 $entityManager->flush();
-        return $this->render('home/neutrePage.html.twig',[
+        return $this->render('place/index.html.twig',[
             'controller_name' => 'Ajout Ok',
             'tvillages' =>$tplacesRepository->findAll(),
         ]);

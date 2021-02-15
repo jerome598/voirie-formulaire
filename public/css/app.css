@@ -2,6 +2,10 @@ h1
 {
     color: #B0413E;
 }
+h2
+{
+    text-align: center;
+}
 
 .btn
 {
@@ -11,6 +15,26 @@ h1
 .backcolor
 {
     background: linear-gradient( #80AE80,white, #57acc1);
+}
+.dimension_iframe
+{
+    width: 0px;
+    height: 0px;
+    border: none;
+    text-align: center;
+}
+.app_center
+{
+    position: relative;
+    width: 100%;
+    text-align:center;
+}
+.app_center_no_relative
+{
+    position: relative;
+    width: 100%;
+    margin-left: 45%;
+    margin-right: 45%;
 }
 
 .logo-app

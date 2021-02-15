@@ -123,6 +123,11 @@ class Incidents
      */
     private ?Tplaces $places;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -353,6 +358,18 @@ class Incidents
     public function setPlaces(?Tplaces $places): self
     {
         $this->places = $places;
+
+        return $this;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    public function setImage( $image)
+    {
+        $this->image = $image;
 
         return $this;
     }

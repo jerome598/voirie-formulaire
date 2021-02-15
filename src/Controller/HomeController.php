@@ -47,6 +47,10 @@ class HomeController extends AbstractController
         $incidents->setDisable(10);
 
         if ( $voirieForm->isSubmitted() && $voirieForm->isValid() ) {
+            $file = $incidents->getImage();
+            $fileName = md5(uniqid()).'.'.$file->guessExtension();
+            $file->move($this->getParameter('upload_directory'),$fileName);
+            $incidents->setImage($fileName);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($incidents);

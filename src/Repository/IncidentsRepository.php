@@ -14,7 +14,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class IncidentsRepository extends ServiceEntityRepository
 {
-      public function send(int $num,array $filters): void
+   /*   public function send(int $num,array $filters): void
     {
         if(key_exists('chkbxtel',$filters) && $filters['chkbxtel'] !=='')
         {
@@ -32,7 +32,7 @@ class IncidentsRepository extends ServiceEntityRepository
     //echo '<br>'.$num.'##'.$message.'##'.$url.'<br>';
         }}
     }
-
+*/
 
     public function __construct(ManagerRegistry $registry)
     {

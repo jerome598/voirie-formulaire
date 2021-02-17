@@ -1,9 +1,10 @@
 doctrine:
     dbal:
         url: '%env(resolve:DATABASE_URL)%'
-        connection:
-            defaut:
-            mapping_types: emu :array
+        # connection:
+        #    defaut:
+        #    mapping_types:
+        #        emu: array
 
 
         # IMPORTANT: You MUST configure your server version,

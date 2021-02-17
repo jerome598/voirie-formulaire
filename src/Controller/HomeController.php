@@ -88,7 +88,6 @@ class HomeController extends AbstractController
             $titre = $request->get('reponse',4);
             $description= $request->get('reponse',3);
             $date = $request->get('reponse',5);
-            var_dump($titre,$description,$date);
             $IPXapikey = "AZERTY";
 
             $message = "Titre:  description:  Date: ";
@@ -107,21 +106,6 @@ class HomeController extends AbstractController
             );
         }
 
-  /*  public function send(int $num): void
-    {
-        $IPXapikey = "AZERTY";
-        $IPX_host = "10.8.1.102";
-        $message = "Votre demande à bien était envoyée auprès de nos services de la mairie de Maisdon-sur-Sèvre. Bonne journée.";
-        if (strlen($num) == 10 && ctype_digit($num) && (substr($num, 0, 2) == '06' || substr($num, 0, 2) == '07')) {
-            $ch = curl_init();
-            $url = "http://" . $IPX_host . "/api/xdevices.json?key=" . $IPXapikey . "&SetSMS=" . $num . ":" . $message;
-//echo $url.'<br>';
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_exec($ch);
-            curl_close($ch);
-//echo '<br>'.$num.'##'.$message.'##'.$url.'<br>';
-        }
-    }*/
 
 
 /*

@@ -52,7 +52,7 @@ class IncidentsType extends AbstractType
                 ],
                 "required"=>false,
                 ])
-             ->add('places',EntityType::class, [
+             ->add('place',EntityType::class, [
                  'label'=>'Lieu de L\'intervention : ',
                  'class'=>Tplaces::class,
                  'choice_label'=>'name',

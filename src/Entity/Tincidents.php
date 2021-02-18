@@ -121,7 +121,7 @@ class Tincidents
      * @ORM\ManyToOne(targetEntity=Tplaces::class, inversedBy="incidents")
      * @ORM\JoinColumn(nullable=false)
      */
-    private ?Tplaces $places;
+    private ?Tplaces $place;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -350,14 +350,14 @@ class Tincidents
     }
 
 
-    public function getPlaces(): ?Tplaces
+    public function getPlace(): ?Tplaces
     {
-        return $this->places;
+        return $this->place;
     }
 
-    public function setPlaces(?Tplaces $places): self
+    public function setPlace(?Tplaces $place): self
     {
-        $this->places = $places;
+        $this->place = $place;
 
         return $this;
     }

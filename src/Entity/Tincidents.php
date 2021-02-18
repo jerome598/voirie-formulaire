@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=IncidentsRepository::class)
  */
-class Incidents
+class Tincidents
 {
     /**
      * @ORM\Id

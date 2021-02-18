@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Incidents;
+use App\Entity\Tincidents;
 use App\Entity\Tplaces;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -91,7 +91,7 @@ class IncidentsType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Incidents::class,
+            'data_class' => Tincidents::class,
         ]);
     }
 }

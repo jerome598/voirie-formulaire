@@ -2,15 +2,15 @@
 
 namespace App\Repository;
 
-use App\Entity\Incidents;
+use App\Entity\Tincidents;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Incidents|null find($id, $lockMode = null, $lockVersion = null)
- * @method Incidents|null findOneBy(array $criteria, array $orderBy = null)
- * @method Incidents[]    findAll()
- * @method Incidents[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Tincidents|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Tincidents|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Tincidents[]    findAll()
+ * @method Tincidents[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class IncidentsRepository extends ServiceEntityRepository
 {
@@ -36,11 +36,11 @@ class IncidentsRepository extends ServiceEntityRepository
 
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Incidents::class);
+        parent::__construct($registry, Tincidents::class);
     }
 
     // /**
-    //  * @return Incidents[] Returns an array of Incidents objects
+    //  * @return Tincidents[] Returns an array of Tincidents objects
     //  */
     /*
     public function findByExampleField($value)
@@ -57,7 +57,7 @@ class IncidentsRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Incidents
+    public function findOneBySomeField($value): ?Tincidents
     {
         return $this->createQueryBuilder('i')
             ->andWhere('i.exampleField = :val')

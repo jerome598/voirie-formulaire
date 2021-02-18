@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Incidents;
+use App\Entity\Tincidents;
 use App\Form\IncidentsType;
 use App\Entity\Tplaces;
 use App\Form\PlaceType;
@@ -29,7 +29,7 @@ class HomeController extends AbstractController
      */
     public function index(Request $request, TplacesRepository $tplacesRepository)
     {
-        $incidents = new Incidents();
+        $incidents = new Tincidents();
         $voirieForm = $this->createForm(IncidentsType::class,$incidents);
         $voirieForm->handleRequest($request);
 

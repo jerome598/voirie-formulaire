@@ -13,10 +13,13 @@ use DateTime;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use PhpParser\Node\Expr\Cast\Array_;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
@@ -80,18 +83,35 @@ class HomeController extends AbstractController
     /**
      * @Route ("/validation", name="app_validation")
      * @param Request $request
+     * @param MailerInterface $mailer
      * @return Response
+     * @throws TransportExceptionInterface
      */
-        public function validation(Request $request): Response
+        public function validation(Request $request, MailerInterface $mailer ): Response
         {
             $num = $request->get('sms');
             $titre = $request->get('reponse',4);
             $description= $request->get('reponse',3);
             $date = $request->get('reponse',5);
+            $mail = $request->get('reponse', 2);
             $IPXapikey = "AZERTY";
 
             $message = "Titre: description: Date: ";
 
+            //création d'un email de confirmation d'envoie de formulaire enregistrée
+            $mail = (new TemplatedEmail())
+                ->from('mairie@maisdon-sur-sevre.fr')
+                ->to($mail)
+                ->subject('Demande de voirie')
+                ->htmlTemplate('emails/copyConfirmation.html.twig')
+                ->context([
+                    'date' => $date,
+                    'titre' => $titre,
+                    'description' => $description,
+                ]);
+            $mailer->send($mail);
+
+            // envoyer une confirmation par sms si le num donnée est un smart
             if (substr($num, 0, 2) == '06' || substr($num, 0, 2) == '07') {
                 $url = "https://sms.maisdon-sur-sevre.fr/api/xdevices.json?key=" . $IPXapikey . "&SetSMS=" . $num . ":" .$message."";
 

@@ -90,7 +90,7 @@ class HomeController extends AbstractController
             $date = $request->get('reponse',5);
             $IPXapikey = "AZERTY";
 
-            $message = "Titre:  description:  Date: ";
+            $message = "Titre: description: Date: ";
 
             if (substr($num, 0, 2) == '06' || substr($num, 0, 2) == '07') {
                 $url = "https://sms.maisdon-sur-sevre.fr/api/xdevices.json?key=" . $IPXapikey . "&SetSMS=" . $num . ":" .$message."";

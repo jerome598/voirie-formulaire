@@ -94,7 +94,7 @@ class HomeController extends AbstractController
             $description= $request->get('reponse',3);
             $date = $request->get('reponse',5);
             $mail = $request->get('reponse', 2);
-            $IPXapikey = "AZERTY";
+            $IPXapikey = "#####";
 
             $message = "Titre: description: Date: ";
 
@@ -126,33 +126,5 @@ class HomeController extends AbstractController
             );
         }
 
-
-
-/*
-    public function checkPage(): Response
-    {
-        return $this->render('home/validationFormulaire.html.twig');
-    }
-*/
- //   /**
-//     * @Route("/addvillages", name="app_addvillages")
-//     * @param EntityManagerInterface $entityManager
-//     * @param TplacesRepository $tplacesRepository
-//     * @return Response
-//     */
-/*    public function add(EntityManagerInterface $entityManager, TplacesRepository $tplacesRepository): Response
-    {
-            for($i = 0 ; $i < 30 ; $i++) {
-                $villages = new Tplaces();
-                $villages->setName("Villages_{$i}_{$i}");
-                $entityManager->persist($villages);
-            }
-                $entityManager->flush();
-        return $this->render('place/index.html.twig',[
-            'controller_name' => 'Ajout Ok',
-            'tvillages' =>$tplacesRepository->findAll(),
-        ]);
-    }
-*/
 }
 

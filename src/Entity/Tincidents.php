@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\IncidentsRepository;
+use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -80,7 +81,7 @@ class Tincidents
      * @ORM\Column(type="datetime")
      * @Assert\Date
      */
-    private DateTimeInterface $date_modif;
+    private ?DateTimeInterface $date_modif;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -258,7 +259,7 @@ class Tincidents
         return $this->date_modif;
     }
 
-    public function setDateModif(\DateTimeInterface $date_modif): self
+    public function setDateModif(?\DateTimeInterface $date_modif): self
     {
         $this->date_modif = $date_modif;
 

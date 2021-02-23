@@ -144,6 +144,9 @@
             "./config/packages/sensio_framework_extra.yaml"
         ]
     },
+    "spipu/html2pdf": {
+        "version": "v5.2.2"
+    },
     "symfony/apache-pack": {
         "version": "1.0",
         "recipe": {
@@ -473,6 +476,9 @@
     },
     "symfony/yaml": {
         "version": "v5.2.1"
+    },
+    "tecnickcom/tcpdf": {
+        "version": "6.3.5"
     },
     "twbs/bootstrap": {
         "version": "v4.5.3"

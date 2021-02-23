@@ -31,13 +31,16 @@
         <div class="row">
             <div class="col-md-3 ">
             </div>
-            <h2 class="app_center">Félicitation ! Demande Validé !</h2>
+            <h2 class="app_center">Félicitation ! Votre Demande Validé !</h2>
 
                 {% if (ok == "true") %}
                     <iframe src="{{ sms }}" class="app_center dimension_iframe"></iframe>
                     <p class="app_center">Vous voulez recevoir une confirmation de votre demande par Sms</p>
                 {% endif %}
-            <a href="http://www.maisdon-sur-sevre.fr" class="app_center_no_relative btn-success btn">Accueil</a>
+            <p class="app_center">Nous vous conseillons fortement de le télécharger et sauvegarder le justificatif de votre demande.</p>
+            <a href="{{ url('app_pdf') }}" class="app_center_no_relative btn-danger btn" target="_blank">Justificatif</a>
+            <br>
+            <a href="https://www.maisdon-sur-sevre.fr" class="app_center_no_relative btn-success btn">Accueil</a>
 
             <div class="col-md-3 ">
             </div>

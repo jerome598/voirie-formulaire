@@ -128,6 +128,31 @@ class HomeController extends AbstractController
             );
         }
 
+    /**
+     * @Route("/modifier/{id}", name="app_modifier_user")
+     * @param User $user
+     * @param Request $request
+     * @return RedirectResponse|Response
+     */
+    public function updateUser(User $user, Request $request)
+    {
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash('message', 'Compte modifié avec succès');
+            return $this->redirectToRoute('app_register');
+        }
+
+        return $this->render('updateUser.html.twig', [
+            'userForm' => $form->createView(),
+        ]);
+    }
+
 
 }
 

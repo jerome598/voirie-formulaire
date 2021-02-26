@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Tincidents;
+use App\Entity\User;
 use App\Form\IncidentsType;
 use App\Entity\Tplaces;
 use App\Form\PlaceType;
@@ -153,6 +154,17 @@ class HomeController extends AbstractController
         ]);
     }
 
-
+    /**
+     * @Route ("/supprimer/{id}",name="app_supprimer_user")
+     * @param User $user
+     * @return Response
+     */
+    public function deleteUser(User $user): Response
+    {
+        $em =$this->getDoctrine()->getManager();
+        $em->remove($user);
+        $em->flush();
+        return $this->render('app_register');
+    }
 }
 

@@ -1,20 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PdfController!{% endblock %}
+{% block title %} {{ parent() }} | Voirie-PDF {% endblock %}
 
 {% block body %}
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
+<div class="container backcolor">
+    <div class="row" id="en-tete">
+        <div class="col-md-2 ">
+            <img src="{{ asset('images/maisdon-logo.jpeg') }}" width="450px" class="logo-app">
+        </div>
+        <div class="col-md-10">
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        </div>
+    </div>
+    <div class="example-wrapper" type="application/x-google-chrome-pdf">
+        <h1>Justificatif de demande de voirie n° {{ content.0.id }}! ✅</h1>
+        <p>Nom: ...{{ content.0.nom }}</p>
+        <p>Mail: ...{{ content.0.email }}</p>
+        <p>Votre demande du .... <input id="jour" type="date" name="date" value="" readonly>
+            </p>
+        <p>Titre: ....{{ content.0.title }}</p>
+        <p>Description: .....{{ content.0.description }}</p>
+        {% if(content.0.image) %}
+        <img src="{{ asset('uploads/') }}{{ content.0.image }}" alt="{{ content.0.image }}">
+        {% endif %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/voirie-formulaire/src/Controller/PdfController.php'|file_link(0) }}">src/Controller/PdfController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/www/voirie-formulaire/templates/pdf/index.html.twig'|file_link(0) }}">templates/pdf/index.html.twig</a></code></li>
-    </ul>
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+        </div>
+        <div class="col-md-2" id="btn_imprime_pdf">
+            <input class="btn btn-primary text-center" id="impression" name="impression" type="submit" onclick="imprimer_pdf_page()" value="Imprimer / PDF " />
+        </div>
+        <div class="col-md-5">
+        </div>
+    </div>
+    <div id="footer" class="form-voirie">
+        <div class="text-right"> &copy; {{ "now" | date("Y")}} maisdon-sur-sevre.fr</div>
+        <br>
+    </div>
 </div>
+
+    <script type="text/javascript">
+        function imprimer_pdf_page(){
+            window.print();
+        }
+        document.getElementById("jour").valueAsDate = new Date();
+    </script>
 {% endblock %}

@@ -6,16 +6,103 @@
     {% for flashError in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
+    <div class="container backcolor">
+        <div class="row" id="en-tete">
+            <div class="col-md-2 ">
+                <img src="{{ asset('images/maisdon-logo.jpeg') }}" width="450px" class="logo-app">
+            </div>
+            <div class="col-md-10">
+            </div>
+        </div>
+        <div>
+            <div class="row">
+                <div class="col-3">
 
-    <h1>Register</h1>
+                </div>
+                <div class="col-3">
+                    <h1>Register</h1>
+                    <div class="input-group mb-3">
+                        {{ form_start(registrationForm) }}
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">{{ form_label(registrationForm.email) }}</span>
+                        </div>
+                        <div class="margin_bottom">{{ form_widget(registrationForm.email) }}</div>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">{{ form_label(registrationForm.username) }}</span>
+                        </div>
+                        <div class="margin_bottom">{{ form_widget(registrationForm.username) }}
+                        </div>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">{{ form_label(registrationForm.plainPassword) }}</span>
+                        </div>
+                            <div class="margin_bottom">
+                            {{ form_widget(registrationForm.plainPassword, {
+                                label: 'Password'
+                            }) }}
+                            </div>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">{{ form_label(registrationForm.roles) }}</span>
+                        </div>
+                                <div class="margin_bottom">
+                                {{ form_widget(registrationForm.roles) }}
+                                </div>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">{{ form_label(registrationForm.agreeTerms) }}</span>
+                        </div>
+                                    <div class="margin_bottom">
+                                {{ form_widget(registrationForm.agreeTerms) }}
+                                    </div>
+                        <button type="submit" class="btn btn-danger">Register</button>
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+                        {{ form_end(registrationForm) }}
+                    </div>
+                <div class="col-5"></div>
+            </div>
+        </div>
+        </div>
+        <nav class="float-right margin_bottom">
+            <a href="{{ path('app_technicien') }}" type="button" class="btn btn-secondary">Liste des demandes</a>
+            <a href="{{ path('home') }}" type="button" class="btn btn-info">Formulaire de  voirie</a>
+            <a href="https://www.maisdon-sur-sevre.fr" type="button" class="btn btn-info">Site Web</a>
+        </nav>
+
+        <h3>Liste des comptes utilisateurs et administrateurs</h3>
+            <table class="table">
+                <thead class="thead-dark">
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>
+                                {% for role in user.roles %}
+                                    {%  if role == "ROLE_ADMIN" %}
+                                        Administrateur
+                                    {% elseif role == "ROLE_USER" %}
+                                        Utilisateur (technicien)
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>
+                                <a href="{{ path('app_modifier_user', {'id' : user.id}) }}" type="button" class="btn btn-primary">Modifier</a>
+                                <a href="{{ path('app_supprimer_user', {'id' : user.id}) }}" type="button" class="btn btn-danger">Supprimer</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        <div id="footer" class="form-voirie footer_marg_top">
+            <div class="text-right"> &copy; {{ "now" | date("Y")}} maisdon-sur-sevre.fr</div>
+            <br>
+        </div>
+    </div>
+
 {% endblock %}

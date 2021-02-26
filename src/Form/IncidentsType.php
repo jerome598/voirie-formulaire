@@ -62,7 +62,7 @@ class IncidentsType extends AbstractType
              ])
             ->add('image', FileType::class, [
                 'label'=>'Parcourir',
-                'required'=>'false',
+                'required'=>false,
             ])
            ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,

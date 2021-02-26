@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} | Voirie-PDF {% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+    <div class="container backcolor">
+        <div class="row" id="en-tete">
+            <div class="col-md-2 ">
+                <img src="{{ asset('images/maisdon-logo.jpeg') }}" width="450px" class="logo-app">
+            </div>
+            <div class="col-md-10">
+            </div>
+        </div>
+
+        <nav class="navbar navbar-light bg-light nav_border float-right">
+            {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('app_register') }}" type="button" class="btn btn-primary">Registre des comptes</a>
+            {% endif %}
+            <a href="{{ path('home') }}" type="button" class="btn btn-info">Formulaire de  voirie</a>
+            <a href="https://www.maisdon-sur-sevre.fr" type="button" class="btn btn-info">Site Web</a>
+            <a href="/deconnexion" type="button" class="btn btn-danger"> Déconnexion </a>
+        </nav>
+        <div class="example-wrapper" type="application/x-google-chrome-pdf">
+            {% set delaisdate = 'now'|date_modify("-180 days") %}
+            <p class="text-left">Listes des demandes de voirie entre {{ delaisdate | date('d/m/y') }} et {% set date = 'now' | date('d/m/y') %}{{ date }} </p>
+            {% for value in liste_formulaire %}
+                {% if(value.dateimport is null or value.datecreate > delaisdate) %}
+                <h1>Justificatif de demande de voirie n° {{ value.id }}! ✅</h1>
+                <p>Nom: ...{{ value.nom }}</p>
+                <p>Mail: ...{{ value.email }}</p>
+                <p>Titre: ....{{ value.title }}</p>
+                <p>Description: .....{{ value.description }}</p>
+                {% if(value.image) %}
+                    <img src="{{ asset('uploads/') }}{{ value.image }}" alt="{{ value.image }}"width="500px" height="400px">
+                {% endif %}
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div id="footer" class="form-voirie">
+            <div class="text-right"> &copy; {{ "now" | date("Y")}} maisdon-sur-sevre.fr</div>
+            <br>
+        </div>
+    </div>
+{% endblock %}

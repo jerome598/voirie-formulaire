@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} | Modifier{% endblock %}
+
+{% block body %}
+
+    <div class="container backcolor">
+        <div class="row" id="en-tete">
+            <div class="col-md-2 ">
+                <img src="{{ asset('images/maisdon-logo.jpeg') }}" width="450px" class="logo-app">
+            </div>
+            <div class="col-md-10">
+                <div class="text-right" style="padding:1em 0;" >
+                    <h4><a class="disabled text-right" style="text-decoration:none;" href="https://www.zeitverschiebung.net/fr/city/2990969"><span style="color:white;"></span><br /></a></h4>
+                    <iframe class="disabled text-right" src="https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=fr&size=large&timezone=Europe%2FParis" width="25%" height="140" frameborder="0" seamless></iframe>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="informations">
+                <div class="container-fluid">
+                    <h2>Modification de Compte</h2>
+                </div>
+        </div>
+
+        <div class="row form-voirie">
+            <div class="col-md-3 form-voirie">
+            </div>
+            <div class="col-md-6 form-voirie">
+                <div class="input-group mb-3">
+                    {{ form_start(formUserModif) }}
+                    {{ form_widget(formUserModif) }}
+                    {{ form_end(formUserModif) }}
+
+                </div>
+            </div>
+            <div class="col-md-3 form-voirie">
+                <a href="{{ path('app_register') }}" type="button" class="btn btn-secondary">Liste des demandes</a>
+            </div>
+        </div>
+        <div id="footer" class="form-voirie">
+            <div class="text-right"> &copy; {{ "now" | date("Y")}} maisdon-sur-sevre.fr</div>
+            <br>
+        </div>
+    </div>
+
+{% endblock %}

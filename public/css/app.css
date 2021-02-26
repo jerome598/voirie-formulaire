@@ -11,10 +11,33 @@ h2
 {
     text-align:center;
 }
+.nav_border
+{
+    border-radius: 8px
+}
+.margin_bottom
+{
+    margin-bottom: 8px;
+}
 
+#jour
+{
+    border: none;
+}
+#btn_imprime_pdf
+{
+    margin-top: 50px;
+    margin-bottom: 200px;
+}
+.footer_marg_top
+{
+    margin-top: 8px;
+}
 .backcolor
 {
     background: linear-gradient( #80AE80,white, #57acc1);
+    height: 100%;
+    border-radius: 8px ;
 }
 .dimension_iframe
 {

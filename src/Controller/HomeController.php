@@ -12,15 +12,14 @@ use ContainerE6jcxec\getPlaceControllerService;
 use DateTime;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
-use mysql_xdevapi\Exception;
 use PhpParser\Node\Expr\Cast\Array_;
-use Spipu\Html2Pdf\Exception\Html2PdfException;
-use Spipu\Html2Pdf\Html2Pdf;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
@@ -31,24 +30,24 @@ class HomeController extends AbstractController
      * @param TplacesRepository $tplacesRepository
      * @return RedirectResponse|Response
      */
-    public function index(Request $request, TplacesRepository $tplacesRepository, IncidentsRepository $incidentsRepository)
+    public function index(Request $request, TplacesRepository $tplacesRepository)
     {
         $incidents = new Tincidents();
         $voirieForm = $this->createForm(IncidentsType::class,$incidents);
         $voirieForm->handleRequest($request);
 
         $incidents->setType(1);
-        $incidents->setTechnician(7);
-        $incidents->setTGroup(0);
-        $incidents->setUse(9);
+        $incidents->setTechnician(2);
+        $incidents->setTGroup(3);
+        $incidents->setUse(4);
         $incidents->setDateCreate(new DateTimeImmutable('now'));
-        //$incidents->setDateModif(new DateTime('now'));
-        $incidents->setState(1);
-        $incidents->setPriority(3);
-        $incidents->setCriticality(2);
-        $incidents->setCategory(3);
-        $incidents->setTechread(0);
-        $incidents->setDisable(0);
+        $incidents->setDateModif(new DateTime('now'));
+        $incidents->setState(5);
+        $incidents->setPriority(6);
+        $incidents->setCriticality(7);
+        $incidents->setCategory(8);
+        $incidents->setTechread(9);
+        $incidents->setDisable(10);
 
         if ( $voirieForm->isSubmitted() && $voirieForm->isValid() ) {
             $file = $incidents->getImage();
@@ -63,12 +62,12 @@ class HomeController extends AbstractController
             $mail=$incidents->getEmail();
             $titre=$incidents->getTitle();
             $demande=$incidents->getDescription();
-            $date= $incidents->getDateCreate()->format('d-m-y');
-
+            $date=$incidents->getDateCreate();
             $reponseValid = [$num,$mail,$demande,$titre,$date];
 
 
             return $this->redirectToRoute('app_validation', [
+                    'sms'=>$num,
                     'reponse'=>$reponseValid,
                 ]);
             }
@@ -84,10 +83,11 @@ class HomeController extends AbstractController
     /**
      * @Route ("/validation", name="app_validation")
      * @param Request $request
+     * @param MailerInterface $mailer
      * @return Response
-     * @throws Html2PdfException
+     * @throws TransportExceptionInterface
      */
-        public function validation(Request $request, IncidentsRepository $incidentsRepository): Response
+        public function validation(Request $request, MailerInterface $mailer ): Response
         {
             $temp = $request->get('reponse');
             $num = $temp[0];
@@ -100,9 +100,8 @@ class HomeController extends AbstractController
 
             $message = "Titre: description: Date: ";
 
-
             //création d'un email de confirmation d'envoie de formulaire enregistrée
-            /*$e_mail = (new TemplatedEmail())
+            $mail = (new TemplatedEmail())
                 ->from('mairie@maisdon-sur-sevre.fr')
                 ->to($mail)
                 ->subject('Demande de voirie')
@@ -112,11 +111,7 @@ class HomeController extends AbstractController
                     'titre' => $titre,
                     'description' => $description,
                 ]);
-            $mailer->send($e_mail);
-*/
-            //$var = $incidentsRepository->findOneBy(max(['id']));
-            //dump($var);
-
+            $mailer->send($mail);
 
             // envoyer une confirmation par sms si le num donnée est un smart
             if (substr($num, 0, 2) == '06' || substr($num, 0, 2) == '07') {
@@ -128,9 +123,8 @@ class HomeController extends AbstractController
                 ]);
             }
             return $this->render('home/validation.html.twig', [
-                    'sms' => 'valider',
-                    'ok'=> 'false',
-                    ]
+                'sms' => 'valider',
+                'ok'=> 'false',]
             );
         }
 
